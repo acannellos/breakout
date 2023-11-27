@@ -18,6 +18,12 @@ func _ready():
 	
 	set_up_direction(Vector2.UP)
 	set_direction()
+	
+	Events.bricked.connect(_on_bricked)
+
+func _on_bricked():
+	if abs(vel.x * 1.1) <= max_speed and abs(vel.y * 1.1) <= max_speed:
+		vel *= 1.1
 
 
 func set_direction():
@@ -47,12 +53,27 @@ func _physics_process(delta):
 			#var groups = collider.get_groups()
 			print(collider.is_in_group("Player"))
 			if collider.is_in_group("Player"):
+
+				Events.paddled.emit()
+
 #				if abs(vel.x * 1.1) <= max_speed and abs(vel.y * 1.1) <= max_speed:
 #					vel *= 1.1
 				vel.x = (transform.origin.x - collision.get_collider().position.x) * paddle_angle_factor
+			
+			if collider.is_in_group("Brick"):
+				collider.destroy()
+
 			return
 
 	if is_on_wall():
 		vel.x = -vel.x
 		print("wall hit")
 		wall.play()
+		
+		for slide in get_slide_collision_count():
+			var collision = get_slide_collision(slide)
+			var collider = collision.get_collider()
+			if collider.is_in_group("Brick"):
+				collider.destroy()
+
+			return

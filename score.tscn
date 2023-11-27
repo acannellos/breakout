@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://chqpaw7qnp6se"]
+
+[ext_resource type="FontFile" uid="uid://cpm7vigvhsshv" path="res://VT323-Regular.ttf" id="1_xukfg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s0l24"]
+font = ExtResource("1_xukfg")
+font_size = 225
+font_color = Color(0.164706, 0.580392, 0.596078, 1)
+
+[node name="score" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0"
+label_settings = SubResource("LabelSettings_s0l24")
+horizontal_alignment = 2
+autowrap_mode = 1

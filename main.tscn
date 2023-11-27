@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbj71ojesw06y"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_bujwi"]
+[ext_resource type="Script" path="res://Scripts/dotted_line.gd" id="1_ccmwo"]
+[ext_resource type="FontFile" uid="uid://cpm7vigvhsshv" path="res://VT323-Regular.ttf" id="2_k8p2u"]
+[ext_resource type="PackedScene" uid="uid://cf2fvehmlthce" path="res://wall_horizontal.tscn" id="3_3bctl"]
+[ext_resource type="PackedScene" uid="uid://cpoqlbwhnqr2x" path="res://player.tscn" id="4_kibor"]
+[ext_resource type="PackedScene" uid="uid://btqa244jn4mwv" path="res://wall_vertical.tscn" id="5_a08w0"]
+[ext_resource type="PackedScene" uid="uid://cxxkr6s07tlgt" path="res://ded.tscn" id="6_fh77a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s0l24"]
+font = ExtResource("2_k8p2u")
+font_size = 225
+font_color = Color(0.164706, 0.580392, 0.596078, 1)
+
+[node name="main" type="CanvasLayer" node_paths=PackedStringArray("player")]
+script = ExtResource("1_bujwi")
+player = NodePath("player")
+
+[node name="bg" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.992157, 0.964706, 0.890196, 1)
+
+[node name="UI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLeft" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 2.0
+offset_right = 340.0
+offset_bottom = 230.0
+text = "0
+"
+label_settings = SubResource("LabelSettings_s0l24")
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="ScoreRight" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 2.0
+offset_right = 540.0
+offset_bottom = 230.0
+text = "0
+"
+label_settings = SubResource("LabelSettings_s0l24")
+horizontal_alignment = 2
+
+[node name="world" type="Node2D" parent="."]
+
+[node name="line" type="Node2D" parent="world"]
+script = ExtResource("1_ccmwo")
+line_color = Color(0.396078, 0.482353, 0.513726, 1)
+y_position = 560
+
+[node name="WallLeft" parent="world" instance=ExtResource("5_a08w0")]
+position = Vector2(10, 0)
+
+[node name="WallRight" parent="world" instance=ExtResource("5_a08w0")]
+position = Vector2(790, 0)
+
+[node name="ceiling" parent="world" instance=ExtResource("3_3bctl")]
+position = Vector2(0, 10)
+
+[node name="ded" parent="world" instance=ExtResource("6_fh77a")]
+position = Vector2(400, 620)
+
+[node name="player" parent="." groups=["Player"] instance=ExtResource("4_kibor")]
+position = Vector2(400, 560)
+
+[connection signal="body_entered" from="world/ded" to="." method="_on_ded_body_entered"]

@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpoqlbwhnqr2x"]
+[gd_scene load_steps=3 format=3 uid="uid://ccvrbg4l3lblv"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_ult6p"]
+[ext_resource type="Script" path="res://Scripts/brick.gd" id="1_ydexk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wx3wx"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ev26i"]
 size = Vector2(20, 100)
 
-[node name="player" type="CharacterBody2D"]
+[node name="brick" type="StaticBody2D" groups=["Brick"]]
 rotation = 1.5708
-script = ExtResource("1_ult6p")
+script = ExtResource("1_ydexk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_wx3wx")
+shape = SubResource("RectangleShape2D_ev26i")
 
 [node name="bg" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -35,4 +35,4 @@ offset_right = 8.0
 offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.933333, 0.909804, 0.835294, 1)
+color = Color(0.14902, 0.545098, 0.823529, 1)
